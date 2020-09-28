@@ -27,7 +27,7 @@ Scenario Outline: Search home by placement
 		|placement|
 		|"city"|
 		|"village"|
-#2. By Material/ Stone,Brick,Wood		
+#2. By Material/ Stone,Brick,Wood 		
 Scenario Outline: Search home by material 
 	When I search about home by_material <material> 
 	Then A list of homes that matches the  material specification should be returned and printed on the console 
