@@ -9,7 +9,8 @@ public class home_information {
 	int number_of_bedrooms;
 	int number_of_bathrooms;
 	boolean allowing_pets ; 
-	String lease_length;
+	int lease_length;
+	String[]amenties;
 	
 
 }

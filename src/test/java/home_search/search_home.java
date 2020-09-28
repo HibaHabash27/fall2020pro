@@ -1,6 +1,8 @@
 package home_search;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,19 +13,45 @@ public class search_home {
 	String type;
 	int price_less;
 	String placement;
-	String material , lease_len  ;
-	int number_of_bedroom;
+	String material  ;
+	int number_of_bedroom, lease_len ;
 	int number_of_bathroom;
 	int low_price , high_price , home_area , low_area , high_area  ;
 	boolean pets ; 
+   	java.util.List<java.util.List<String>> list;
 
 	@Given("these homes are contained in the system")
 	public void theseHomesAreContainedInTheSystem(io.cucumber.datatable.DataTable dataTable) {
-		// int size=dataTable.asList().size();
-		// for(int i=0;i<size;i++)
-		// {
-		// System.out.print(dataTable.asList().get(i));
-		// }
+		//type [0]*-material [1]* -placement [2]* -pets [3]* - amenties [4] -price [0] -area [1] -bedrooms [2] -bathrooms [3] -leaselength [4]
+		
+			 String temp = null;
+		
+			 list=dataTable.asLists();
+			 for(int i=0;i<list.size();i++)
+				  {temp=list.get(i).toString();
+				  java.util.List<String> list2=list.get(i);
+				  String ss=list2.get(0);
+				  String s2=list2.get(1);
+				  String [] tokens=ss.split("_"); 
+				  String [] tokens2=s2.split("_");
+				  home_information home=new home_information();
+					 home.type=tokens[0];
+					 home.material=tokens[1];
+					 home.placement=tokens[2];
+					 if (tokens[3].equalsIgnoreCase("yes"))
+						 home.allowing_pets=true;
+					 else home.allowing_pets= false ;
+					 String[] am = tokens[4].split(",");
+					 home.amenties=am;
+					 home.price=Integer.parseInt(tokens2[0]);
+					 home.area = Integer.parseInt(tokens2[1]);
+					 home.number_of_bedrooms=Integer.parseInt(tokens2[2]);
+					 home.number_of_bathrooms=Integer.parseInt(tokens2[3]);
+					 home.lease_length = Integer.parseInt(tokens2[4]);
+					 home_inf.add(home);
+
+				  }
+
 
 	}
 
@@ -194,7 +222,10 @@ public class search_home {
 
 						@When("I search about home by lease length {string}")
 						public void iSearchAboutHomeByLeaseLength(String string) {
-						    lease_len = string;
+						    if (string.equalsIgnoreCase("short"))
+						       lease_len= 6;
+						    else lease_len = 12 ;
+						    
 						}
 
 
@@ -202,7 +233,7 @@ public class search_home {
 						@Then("A list of homes that matches the  lease length specification should be returned and printed on the console")
 						public void aListOfHomesThatMatchesTheLeaseLengthSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 							for (home_information home : home_inf) {
-								if (home.lease_length.equalsIgnoreCase(lease_len))
+								if (home.lease_length==lease_len)
 									System.out.print(home.placement);
 						}}
 
@@ -210,16 +241,15 @@ public class search_home {
 
 							@When("I search about home by Amenities {string}")
 							public void iSearchAboutHomeByAmenities(String string) {
-							    // Write code here that turns the phrase above into concrete actions
-							    throw new io.cucumber.java.PendingException();
+							
 							}
 
 
 
 							@Then("A list of homes that matches the  Amenities specification should be returned and printed on the console")
 							public void aListOfHomesThatMatchesTheAmenitiesSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-							    // Write code here that turns the phrase above into concrete actions
-							    throw new io.cucumber.java.PendingException();
+							   
+							   
 							}
 
 
