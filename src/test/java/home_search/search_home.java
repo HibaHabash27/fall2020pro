@@ -203,6 +203,17 @@ public class search_home {
 		search.printResult();
 
 	}
+	
+	
+
+		@Then("A list of homes that matches the previous specification should be returned and printed on the console")
+		public void aListOfHomesThatMatchesThePreviousSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+			search.printResult();
+
+		}
+
+
+
 
 }
 

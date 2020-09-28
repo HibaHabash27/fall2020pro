@@ -107,8 +107,11 @@ Scenario Outline: Search home by Amenities
 		|"Garage Parking"|
 		|"Swimming Pool"|
 
-
-
+Scenario: Search By Combination of at least 2 of the above mentioned scenarios
+	When I search about home area between 100 and 500 
+	And  I search about home by_material "BRICK"
+	And  I search about home by Amenities "Elevator"
+	Then A list of homes that matches the previous specification should be returned and printed on the console 
 
 
 
