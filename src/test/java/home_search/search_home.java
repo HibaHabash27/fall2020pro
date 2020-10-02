@@ -1,9 +1,6 @@
 package home_search;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -26,35 +23,40 @@ public class search_home {
 	public void theseHomesAreContainedInTheSystem(io.cucumber.datatable.DataTable dataTable) {
 		
 
-		String temp = null;
 
 		list = dataTable.asLists();
 		for (int i = 0; i < list.size(); i++) {
-			temp = list.get(i).toString();
+			
 			java.util.List<String> list2 = list.get(i);
 			String ss = list2.get(0);
 			String s2 = list2.get(1);
 			String[] tokens = ss.split("_");
 			String[] tokens2 = s2.split("_");
 			home_information home = new home_information();
-			home.type = tokens[0];
-			home.material = tokens[1];
-			home.placement = tokens[2];
+			home.setId(i+1);
+			home.setType(tokens[0]);
+			home.setMaterial(tokens[1]);
+			home.setPlacement(tokens[2]);
 			if (tokens[3].equalsIgnoreCase("yes"))
-				home.allowing_pets = true;
+				home.setAllowing_pets(true);
+			
 			else
-				home.allowing_pets = false;
+				home.setAllowing_pets(false);
 			String[] am = tokens[4].split(",");
-			home.amenties = am;
-			home.price = Integer.parseInt(tokens2[0]);
-			home.area = Integer.parseInt(tokens2[1]);
-			home.number_of_bedrooms = Integer.parseInt(tokens2[2]);
-			home.number_of_bathrooms = Integer.parseInt(tokens2[3]);
-			home.lease_length = Integer.parseInt(tokens2[4]);
+			home.setAmenties(am);
+			home.setPrice(Integer.parseInt(tokens2[0]));
+			home.setArea(Integer.parseInt(tokens2[1]));
+			home.setNumber_of_bathrooms(Integer.parseInt(tokens2[3]));
+			home.setNumber_of_bedrooms(Integer.parseInt(tokens2[2]));
+			home.setLease_length(Integer.parseInt(tokens2[4]));
+			
+			
 			home_inf.add(home);
-			search = new Search(home_inf);
+			
+			
 
 		}
+		search = new Search(home_inf);
 
 	}
 
@@ -182,7 +184,7 @@ public class search_home {
 			lease_len = 6;
 		else
 			lease_len = 12;
-		search.searchByLeaseLength(lease_len);
+		search.byLeaseLength(lease_len);
 
 	}
 

@@ -33,12 +33,15 @@ public class Search {
 	}
 
 	public CopyOnWriteArrayList<home_information> printResult() {
+		
+		System.out.println();
+		System.out.println();
 		if (home_result.isEmpty()) {
 			System.out.println("There is no house with such specifications :( ");
 		}
 		else
 		for (home_information home : home_result) {
-			System.out.println(home.type + "-" + home.material + "-" + home.placement);
+			System.out.println("Home [ id="+home.id+ " , type:" +home.type + " , Material:" + home.material + " , Placement:" + home.placement+ " ]");
 			// type [0]*-material [1]* -placement [2]* -pets [3]* - amenties [4] -price [0]
 			// -area [1] -bedrooms [2] -bathrooms [3] -leaselength [4]
 		}
@@ -137,7 +140,7 @@ public class Search {
 
 	}
 
-	public void searchByLeaseLength(int lease_len) {
+	public void byLeaseLength(int lease_len) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.lease_length == lease_len)
