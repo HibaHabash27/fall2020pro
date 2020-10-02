@@ -62,7 +62,7 @@ public class search_home {
 
 	@When("I search about home by {string}")
 	public void iSearchAboutHomeBy(String string) {
-		search.searchByType(string);
+		search.byType(string);
 
 	}
 
@@ -75,7 +75,7 @@ public class search_home {
 	@When("I search about home with price less than {int}")
 	public void iSearchAboutHomeWithPriceLessThan(Integer int1) {
 
-		search.searchByPrice(int1);
+		search.byPrice(int1);
 	}
 
 	@Then("A list of homes that matches the price specification should be returned and printed on the console")
@@ -85,7 +85,7 @@ public class search_home {
 
 	@When("i search about home by_placement {string}")
 	public void iSearchAboutHomeByPlacement(String string) {
-		search.searchByPlacement(string);
+		search.byPlacement(string);
 	}
 
 	@Then("A list of homes that matches the  placement specification should be returned and printed on the console")
@@ -95,7 +95,7 @@ public class search_home {
 
 	@When("I search about home by_material {string}")
 	public void iSearchAboutHomeByMaterial(String string) {
-		search.searchByMaterial(string);
+		search.byMaterial(string);
 	}
 
 	@Then("A list of homes that matches the  material specification should be returned and printed on the console")
@@ -106,7 +106,7 @@ public class search_home {
 	@When("I search about home by_number_of_bedroom {string}")
 	public void iSearchAboutHomeByNumberOfBedroom(String string) {
 		number_of_bedroom = Integer.parseInt(string);
-		search.searchByNumberOfBedrooms(number_of_bedroom);
+		search.byNumberOfBedrooms(number_of_bedroom);
 	}
 
 	@Then("A list of homes that matches the  number_of_bedroom specification should be returned and printed on the console")
@@ -117,7 +117,7 @@ public class search_home {
 	@When("I search about home by_number_of_bathroom {string}")
 	public void iSearchAboutHomeByNumberOfBathroom(String string) {
 		number_of_bathroom = Integer.parseInt(string);
-		search.searchByNumberOfBathrooms(number_of_bathroom);
+		search.byNumberOfBathrooms(number_of_bathroom);
 
 	}
 
@@ -130,7 +130,7 @@ public class search_home {
 	public void iSearchAboutHomeBetweenAnd(Integer int1, Integer int2) {
 		low_price = int1;
 		high_price = int2;
-		search.searchBetweenRangeOfPrice(low_price, high_price);
+		search.betweenRangeOfPrice(low_price, high_price);
 
 	}
 
@@ -141,7 +141,7 @@ public class search_home {
 
 	@When("I search home below area {int}")
 	public void iSearchHomeBelowArea(Integer int1) {
-		search.searchByAreaBelow(int1.intValue());
+		search.byAreaBelow(int1.intValue());
 	}
 
 	@Then("A list of homes that matches the area specification should be returned and printed on the console")
@@ -155,7 +155,7 @@ public class search_home {
 			pets = true;
 		else
 			pets = false;
-		search.searchByAllowingPets(pets);
+		search.byAllowingPets(pets);
 	}
 
 	@Then("A list of homes that matches the  Allowing pets specification should be returned and printed on the console")
@@ -168,7 +168,7 @@ public class search_home {
 	public void iSearchAboutHomeAreaBetweenAnd(Integer int1, Integer int2) {
 		low_area = int1;
 		high_area = int2;
-		search.searchBetweenRangeOfarea(low_area, high_area);
+		search.betweenRangeOfarea(low_area, high_area);
 
 	}
 
@@ -196,7 +196,7 @@ public class search_home {
 	@When("I search about home by Amenities {string}")
 	public void iSearchAboutHomeByAmenities(String string) {
 		amenities = string;
-		search.searchByAmenities(amenities);
+		search.byAmenities(amenities);
 
 	}
 

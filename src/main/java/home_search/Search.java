@@ -11,7 +11,7 @@ public class Search {
 		home_result = home_array;
 	}
 
-	public void searchByType(String type) {
+	public void byType(String type) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.type.equalsIgnoreCase(type))
@@ -22,7 +22,7 @@ public class Search {
 
 	}
 
-	public void searchByPlacement(String place) {
+	public void byPlacement(String place) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.placement.equalsIgnoreCase(place))
@@ -48,7 +48,7 @@ public class Search {
 		return home_result;
 	}
 
-	public void searchByPrice(int price) {
+	public void byPrice(int price) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.price < price)
@@ -58,7 +58,7 @@ public class Search {
 		}
 	}
 
-	public void searchByMaterial(String string) {
+	public void byMaterial(String string) {
 		for (home_information home : home_result) {
 			if (home.material.equalsIgnoreCase(string))
 				continue;
@@ -68,7 +68,7 @@ public class Search {
 
 	}
 
-	public void searchByNumberOfBedrooms(int NOB) {
+	public void byNumberOfBedrooms(int NOB) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.number_of_bedrooms == NOB)
@@ -78,7 +78,7 @@ public class Search {
 		}
 	}
 
-	public void searchByNumberOfBathrooms(int NOB) {
+	public void byNumberOfBathrooms(int NOB) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.number_of_bathrooms == NOB)
@@ -88,7 +88,7 @@ public class Search {
 		}
 	}
 
-	public void searchBetweenRangeOfPrice(int low_price, int high_price) {
+	public void betweenRangeOfPrice(int low_price, int high_price) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.price <= high_price && home.price >= low_price)
@@ -99,7 +99,7 @@ public class Search {
 		}
 	}
 
-	public void searchBetweenRangeOfarea(int low_area, int high_area) {
+	public void betweenRangeOfarea(int low_area, int high_area) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.area <= high_area && home.area >= low_area)
@@ -110,7 +110,7 @@ public class Search {
 		}
 	}
 
-	public void searchByAreaBelow(int Area) {
+	public void byAreaBelow(int Area) {
 		if (home_result.isEmpty()) return;
 		for (home_information home : home_result) {
 			if (home.area <= Area)
@@ -121,7 +121,7 @@ public class Search {
 		}
 	}
 
-	public void searchByAllowingPets(boolean pets) {
+	public void byAllowingPets(boolean pets) {
 		if (home_result.isEmpty()) return;
 		if (pets = true) {
 			for (home_information home : home_result) {
@@ -151,7 +151,7 @@ public class Search {
 
 	}
 
-	public void searchByAmenities(String amenities) {
+	public void byAmenities(String amenities) {
 		if (home_result.isEmpty()) return;
 		flag = false;
 		for (home_information home : home_result) {
