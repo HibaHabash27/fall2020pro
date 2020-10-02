@@ -9,6 +9,7 @@ public class search_home {
 	CopyOnWriteArrayList<home_information> home_inf = new CopyOnWriteArrayList<home_information>();
 	String type;
 	int price_less;
+	int area_less;
 	String placement;
 	String material;
 	String amenities;
@@ -16,6 +17,7 @@ public class search_home {
 	int number_of_bathroom;
 	int low_price, high_price, home_area, low_area, high_area;
 	boolean pets;
+	String lease_length;
 	java.util.List<java.util.List<String>> list;
 	Search search;
 
@@ -62,44 +64,51 @@ public class search_home {
 
 	@When("I search about home by {string}")
 	public void iSearchAboutHomeBy(String string) {
+		type=string;
 		search.byType(string);
 
 	}
 
 	@Then("A list of homes that matches the  type specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheTypeSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by type: "+type);
 		search.printResult();
 
 	}
 
 	@When("I search about home with price less than {int}")
 	public void iSearchAboutHomeWithPriceLessThan(Integer int1) {
-
+       price_less=int1;
 		search.byPrice(int1);
 	}
 
 	@Then("A list of homes that matches the price specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesThePriceSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by price less than "+price_less);
 		search.printResult();
 	}
 
 	@When("i search about home by_placement {string}")
 	public void iSearchAboutHomeByPlacement(String string) {
+		placement=string;
 		search.byPlacement(string);
 	}
 
 	@Then("A list of homes that matches the  placement specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesThePlacementSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		search.printResult();
+		System.out.println("Search by placement :"+ placement);
+        search.printResult();
 	}
 
 	@When("I search about home by_material {string}")
 	public void iSearchAboutHomeByMaterial(String string) {
+		material=string;
 		search.byMaterial(string);
 	}
 
 	@Then("A list of homes that matches the  material specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheMaterialSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by material :" +material);
 		search.printResult();
 	}
 
@@ -111,6 +120,7 @@ public class search_home {
 
 	@Then("A list of homes that matches the  number_of_bedroom specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheNumberOfBedroomSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by number of bedrooms :" +number_of_bedroom);
 		search.printResult();
 	}
 
@@ -123,6 +133,7 @@ public class search_home {
 
 	@Then("A list of homes that matches the  number_of_bathroom specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheNumberOfBathroomSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by number of bathrooms :" +number_of_bathroom);
 		search.printResult();
 	}
 
@@ -136,16 +147,20 @@ public class search_home {
 
 	@Then("A list of homes that matches the  range of price specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheRangeOfPriceSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by price between "+ low_price +","+ high_price);
 		search.printResult();
 	}
 
 	@When("I search home below area {int}")
 	public void iSearchHomeBelowArea(Integer int1) {
+		area_less=int1;
 		search.byAreaBelow(int1.intValue());
 	}
 
 	@Then("A list of homes that matches the area specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheAreaSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by area less than "+area_less);
+
 		search.printResult();
 	}
 
@@ -160,6 +175,8 @@ public class search_home {
 
 	@Then("A list of homes that matches the  Allowing pets specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheAllowingPetsSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by allowing pets");
+
 		search.printResult();
 
 	}
@@ -174,12 +191,14 @@ public class search_home {
 
 	@Then("A list of homes that matches the  range of area specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheRangeOfAreaSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by area between "+low_area+" , "+high_area);
 		search.printResult();
 
 	}
 
 	@When("I search about home by lease length {string}")
 	public void iSearchAboutHomeByLeaseLength(String string) {
+		lease_length=string;
 		if (string.equalsIgnoreCase("short"))
 			lease_len = 6;
 		else
@@ -190,6 +209,7 @@ public class search_home {
 
 	@Then("A list of homes that matches the  lease length specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheLeaseLengthSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by lease length :" +lease_length);
 		search.printResult();
 	}
 
@@ -202,6 +222,7 @@ public class search_home {
 
 	@Then("A list of homes that matches the  Amenities specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheAmenitiesSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by amenities :"+ amenities);
 		search.printResult();
 
 	}
@@ -210,6 +231,8 @@ public class search_home {
 
 		@Then("A list of homes that matches the previous specification should be returned and printed on the console")
 		public void aListOfHomesThatMatchesThePreviousSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+			System.out.println("Search more than one attribute");
+
 			search.printResult();
 
 		}

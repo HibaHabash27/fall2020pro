@@ -34,16 +34,22 @@ public class Search {
 
 	public CopyOnWriteArrayList<home_information> printResult() {
 		
-		System.out.println();
-		System.out.println();
+
 		if (home_result.isEmpty()) {
 			System.out.println("There is no house with such specifications :( ");
 		}
 		else
 		for (home_information home : home_result) {
-			System.out.println("Home [ id="+home.id+ " , type:" +home.type + " , Material:" + home.material + " , Placement:" + home.placement+ " ]");
-			// type [0]*-material [1]* -placement [2]* -pets [3]* - amenties [4] -price [0]
-			// -area [1] -bedrooms [2] -bathrooms [3] -leaselength [4]
+			System.out.println("Home[id="+home.id+ " ,type:" +home.type + " ,Material:" + home.material + " ,Placement:" + home.placement+"  ,price:"+home.price+" ,area:"+home.area+" ,number of bathrooms"+ home.number_of_bathrooms+",number of bedrooms:"+home.number_of_bedrooms+"  ,lease length :" +home.lease_length+"  ,allowing pets :"+home.allowing_pets+",amenties :");
+			
+			for(int i=0;i<home.amenties.length;i++)	
+		    {
+				System.out.print(home.amenties[i]+"_");
+		    }
+			System.out.print("]");
+			System.out.println();
+			System.out.println();
+			
 		}
 		return home_result;
 	}
