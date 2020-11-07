@@ -3,7 +3,7 @@
   associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="home_search.Search" project="home_search" 
     file="/home_search/src/main/java/home_search/Search.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="340" width="348" x="41" y="37"/>    
+    <position height="-1" width="-1" x="670" y="192"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="home_search.home_information" project="home_search" 
     file="/home_search/src/main/java/home_search/home_information.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="682" width="222" x="41" y="417"/>    
+    <position height="-1" width="-1" x="295" y="276"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,8 +21,12 @@
   </class>  
   <association id="3">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="4" name="home_result"/>      
-      <multiplicity id="5" minimum="0" maximum="2147483647"/>    
+      <attribute id="4" name="home_result">        
+        <position height="0" width="0" x="143" y="-482"/>      
+      </attribute>      
+      <multiplicity id="5" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="143" y="-482"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

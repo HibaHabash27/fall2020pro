@@ -1,46 +1,50 @@
 package home_search;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Search {
-	CopyOnWriteArrayList<home_information> home_result;
+
+	CopyOnWriteArrayList<home_information> homeresult;
 	boolean flag;
 
-	public Search(CopyOnWriteArrayList<home_information> home_array) {
-		home_result = home_array;
+	public Search(CopyOnWriteArrayList<home_information> homearray) {
+		homeresult = homearray;
 	}
 
-	public void byType(String type) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.type.equalsIgnoreCase(type))
-				continue;
-			else
-				home_result.remove(home);
+	public CopyOnWriteArrayList<home_information> byType(String type) {
+		
+		if (homeresult.isEmpty())
+			return homeresult;
+		for (home_information home : homeresult) {
+			if (!home.type.equalsIgnoreCase(type))
+				homeresult.remove(home);
+			
 		}
+		 return homeresult;
 
 	}
 
-	public void byPlacement(String place) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.placement.equalsIgnoreCase(place))
-				continue;
-			else
-				home_result.remove(home);
+	public CopyOnWriteArrayList<home_information> byPlacement(String place) {
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (!home.placement.equalsIgnoreCase(place))
+				homeresult.remove(home);
 		}
+		 return homeresult;
+		
 	}
 
 	public CopyOnWriteArrayList<home_information> printResult() {
 		
 
-		if (home_result.isEmpty()) {
+		if (homeresult.isEmpty()) {
 			System.out.println("There is no house with such specifications :( ");
+			
 		}
 		else
-		for (home_information home : home_result) {
-			System.out.println("Home[id="+home.id+ " ,type:" +home.type + " ,Material:" + home.material + " ,Placement:" + home.placement+"  ,price:"+home.price+" ,area:"+home.area+" ,number of bathrooms"+ home.number_of_bathrooms+",number of bedrooms:"+home.number_of_bedrooms+"  ,lease length :" +home.lease_length+"  ,allowing pets :"+home.allowing_pets+",amenties :");
+		{
+		for (home_information home : homeresult) {
+			System.out.println("Home[id="+home.id+ " ,type:" +home.type + " ,Material:" + home.material + " ,Placement:" + home.placement+"  ,price:"+home.price+" ,area:"+home.area+" ,number of bathrooms"+ home.numberOfBathroom1+",number of bedrooms:"+home.numberOfBedroom+"  ,lease length :" +home.leaseLength1+"  ,allowing pets :"+home.allowingPets1+",amenties :");
 			
 			for(int i=0;i<home.amenties.length;i++)	
 		    {
@@ -51,116 +55,116 @@ public class Search {
 			System.out.println();
 			
 		}
-		return home_result;
-	}
-
-	public void byPrice(int price) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.price < price)
-				continue;
-			else
-				home_result.remove(home);
+		
 		}
+		return homeresult;
 	}
 
-	public void byMaterial(String string) {
-		for (home_information home : home_result) {
-			if (home.material.equalsIgnoreCase(string))
-				continue;
-			else
-				home_result.remove(home);
+	public CopyOnWriteArrayList<home_information> byPrice(int price) {
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (home.price >= price)
+		
+				homeresult.remove(home);
 		}
-
+		 return homeresult;
 	}
 
-	public void byNumberOfBedrooms(int NOB) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.number_of_bedrooms == NOB)
-				continue;
-			else
-				home_result.remove(home);
+	public  CopyOnWriteArrayList<home_information> byMaterial(String string) {
+		for (home_information home : homeresult) {
+			if (!home.material.equalsIgnoreCase(string))
+			
+				homeresult.remove(home);
 		}
+		return homeresult;
+
 	}
 
-	public void byNumberOfBathrooms(int NOB) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.number_of_bathrooms == NOB)
-				continue;
-			else
-				home_result.remove(home);
+	public CopyOnWriteArrayList<home_information> byNumberOfBedrooms(int nob) {
+	
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (home.numberOfBedroom != nob)
+				homeresult.remove(home);
 		}
+		return homeresult;
 	}
 
-	public void betweenRangeOfPrice(int low_price, int high_price) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.price <= high_price && home.price >= low_price)
-				continue;
-			else
-				home_result.remove(home);
-
+	public  CopyOnWriteArrayList<home_information> byNumberOfBathrooms(int nob) {
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (home.numberOfBathroom1 != nob)
+				homeresult.remove(home);
 		}
+		return homeresult;
 	}
 
-	public void betweenRangeOfarea(int low_area, int high_area) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.area <= high_area && home.area >= low_area)
-				continue;
-			else
-				home_result.remove(home);
+	public CopyOnWriteArrayList<home_information> betweenRangeOfPrice(int lowprice, int highprice) {
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (!(home.price <= highprice && home.price >= lowprice))
+				homeresult.remove(home);
+			
 
 		}
+		return homeresult;
 	}
 
-	public void byAreaBelow(int Area) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.area <= Area)
-				continue;
-			else
-				home_result.remove(home);
+	public CopyOnWriteArrayList<home_information> betweenRangeOfarea(int lowarea, int higharea) {
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (!(home.area <= higharea && home.area >= lowarea))
+				homeresult.remove(home);
+			
 
 		}
+		return homeresult;
 	}
 
-	public void byAllowingPets(boolean pets) {
-		if (home_result.isEmpty()) return;
-		if (pets = true) {
-			for (home_information home : home_result) {
-				if (home.allowing_pets)
-					continue;
-				else
-					home_result.remove(home);
+	public  CopyOnWriteArrayList<home_information> byAreaBelow(int area1) {
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (home.area > area1)
+				homeresult.remove(home);
+			
+
+		}
+		return homeresult;
+	}
+
+	public  CopyOnWriteArrayList<home_information>  byAllowingPets(boolean pets) {
+		if (homeresult.isEmpty()) return homeresult;
+		if (pets) {
+			for (home_information home : homeresult) {
+				if (!home.allowingPets1)
+		
+					homeresult.remove(home);
 			}
 		} else {
-			for (home_information home : home_result)
-				if (home.allowing_pets == false)
-					continue;
-				else
-					home_result.remove(home);
+			for (home_information home : homeresult)
+				if (home.allowingPets1 )
+					homeresult.remove(home);
 		}
+		
+		return homeresult;
 
 	}
 
-	public void byLeaseLength(int lease_len) {
-		if (home_result.isEmpty()) return;
-		for (home_information home : home_result) {
-			if (home.lease_length == lease_len)
-				continue;
-			else
-				home_result.remove(home);
+	public  CopyOnWriteArrayList<home_information> byLeaseLength(int leaselen) {
+		if (homeresult.isEmpty()) return homeresult;
+		for (home_information home : homeresult) {
+			if (home.leaseLength1 != leaselen)
+		
+				homeresult.remove(home);
 		}
+		return homeresult;
 
 	}
 
-	public void byAmenities(String amenities) {
-		if (home_result.isEmpty()) return;
+	public CopyOnWriteArrayList<home_information> byAmenities(String amenities) {
+		if (homeresult.isEmpty()) return homeresult;
 		flag = false;
-		for (home_information home : home_result) {
+		for (home_information home : homeresult) {
 			for (String am : home.amenties) {
 				if (amenities.equalsIgnoreCase(am)) {
 					flag = true;
@@ -168,11 +172,11 @@ public class Search {
 				}
 
 			}
-			if (flag == true)
-				continue;
-			else
-				home_result.remove(home);
+			if (!flag)
+		
+				homeresult.remove(home);
 		}
+		return homeresult;
 
 	}
 

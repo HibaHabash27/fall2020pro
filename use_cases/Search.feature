@@ -12,8 +12,8 @@ Scenario Outline: Search home by type
 	Then A list of homes that matches the  type specification should be returned and printed on the console 
 	Examples: 
 		|type|
-		|"house"|
-		|"apartment"|
+		|"HOUSE"|
+		|"APARTMENT"|
 #3. By below specific price/ month		
 Scenario: Search about home with less than a specific price 
 	When I search about home with price less than 400 
@@ -25,17 +25,17 @@ Scenario Outline: Search home by placement
 	Then A list of homes that matches the  placement specification should be returned and printed on the console 
 	Examples: 
 		|placement|
-		|"city"|
-		|"village"|
+		|"CITY"|
+		|"VILLAGE"|
 #2. By Material/ Stone,Brick,Wood 		
 Scenario Outline: Search home by material 
 	When I search about home by_material <material> 
 	Then A list of homes that matches the  material specification should be returned and printed on the console 
 	Examples: 
 		|material|
-		|"stone"|
-		|"brick"|
-		|"wood"|
+		|"STONE"|
+		|"BRICK"|
+		|"WOOD"|
 
 #7. By Number of bedrooms / 1,2,3,4,5	
 Scenario Outline: Search home by number_of_bedroom 
@@ -83,8 +83,8 @@ Scenario Outline: Search home by Allowing_pets
 	Then A list of homes that matches the  Allowing pets specification should be returned and printed on the console 
 	Examples: 
 		|Allowed|
-		|"yes"|
-		|"no"|
+		|"YES"|
+		|"NO"|
 
 #11. By Lease Length / short term_6 months, long term_year
 Scenario Outline: Search home by lease_Length
@@ -92,8 +92,8 @@ Scenario Outline: Search home by lease_Length
 	Then A list of homes that matches the  lease length specification should be returned and printed on the console 
 	Examples: 
 		|lease_length|
-		|"short"|
-		|"long"|
+		|"SHORT"|
+		|"LONG"|
 #12. By Amenities/ AirConditioning, Balcony, Elevator, FirePlace, Garage Parking,
 #Swimming Pool
 Scenario Outline: Search home by Amenities
@@ -101,11 +101,11 @@ Scenario Outline: Search home by Amenities
 	Then A list of homes that matches the  Amenities specification should be returned and printed on the console 
 	Examples: 
 		|Amenities|
-		|"AirConditioning"|
-		|"Elevator"|
-		|"FirePlace"|
-		|"Garage Parking"|
-		|"Swimming Pool"|
+		|"AIRCONDITIONING"|
+		|"ELEVATOR"|
+		|"FIREPLACE"|
+		|"GARAGE PARKING"|
+		|"SWIMMING POOL"|
 
 Scenario: Search By Combination of at least 2 of the above mentioned scenarios
 	When I search about home area between 100 and 500 

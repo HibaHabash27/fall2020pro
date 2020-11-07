@@ -1,5 +1,8 @@
 package home_search;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,15 +12,15 @@ public class search_home {
 	CopyOnWriteArrayList<home_information> home_inf = new CopyOnWriteArrayList<home_information>();
 	String type;
 	int price_less;
-	int area_less;
+	int arealess;
 	String placement;
 	String material;
 	String amenities;
-	int number_of_bedroom, lease_len;
-	int number_of_bathroom;
-	int low_price, high_price, home_area, low_area, high_area;
+	int numberOfBedroom2, leaseLen;
+	int numberOfBathroom2;
+	int lowPrice2, highPrice2, homeArea2, lowArea2, highArea2;
 	boolean pets;
-	String lease_length;
+	String leaseLength;
 	java.util.List<java.util.List<String>> list;
 	Search search;
 
@@ -40,17 +43,17 @@ public class search_home {
 			home.setMaterial(tokens[1]);
 			home.setPlacement(tokens[2]);
 			if (tokens[3].equalsIgnoreCase("yes"))
-				home.setAllowing_pets(true);
+				home.setAllowingPets(true);
 			
 			else
-				home.setAllowing_pets(false);
+				home.setAllowingPets(false);
 			String[] am = tokens[4].split(",");
 			home.setAmenties(am);
 			home.setPrice(Integer.parseInt(tokens2[0]));
 			home.setArea(Integer.parseInt(tokens2[1]));
-			home.setNumber_of_bathrooms(Integer.parseInt(tokens2[3]));
-			home.setNumber_of_bedrooms(Integer.parseInt(tokens2[2]));
-			home.setLease_length(Integer.parseInt(tokens2[4]));
+			home.setNumberOfBathrooms(Integer.parseInt(tokens2[3]));
+			home.setNumberOfBedrooms(Integer.parseInt(tokens2[2]));
+			home.setLeaseLength(Integer.parseInt(tokens2[4]));
 			
 			
 			home_inf.add(home);
@@ -61,11 +64,17 @@ public class search_home {
 		search = new Search(home_inf);
 
 	}
-
+	CopyOnWriteArrayList<home_information> check = new CopyOnWriteArrayList<home_information>();
 	@When("I search about home by {string}")
 	public void iSearchAboutHomeBy(String string) {
 		type=string;
-		search.byType(string);
+		check=null;
+		check=search.byType(string);
+		for(home_information homeCheck:check)
+		{
+			assertEquals(homeCheck.type, type);
+			
+		}
 
 	}
 
@@ -73,13 +82,20 @@ public class search_home {
 	public void aListOfHomesThatMatchesTheTypeSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by type: "+type);
 		search.printResult();
+		
 
 	}
 
 	@When("I search about home with price less than {int}")
 	public void iSearchAboutHomeWithPriceLessThan(Integer int1) {
        price_less=int1;
-		search.byPrice(int1);
+       check=null;
+		check=search.byPrice(int1);
+		for(home_information homeCheck:check)
+		{
+			assertTrue(homeCheck.price<int1);
+			
+		}
 	}
 
 	@Then("A list of homes that matches the price specification should be returned and printed on the console")
@@ -91,7 +107,13 @@ public class search_home {
 	@When("i search about home by_placement {string}")
 	public void iSearchAboutHomeByPlacement(String string) {
 		placement=string;
-		search.byPlacement(string);
+		check=null;
+		check=search.byPlacement(string);
+		for(home_information homeCheck:check)
+		{
+			assertEquals(homeCheck.placement, placement);
+			
+		}
 	}
 
 	@Then("A list of homes that matches the  placement specification should be returned and printed on the console")
@@ -103,7 +125,13 @@ public class search_home {
 	@When("I search about home by_material {string}")
 	public void iSearchAboutHomeByMaterial(String string) {
 		material=string;
-		search.byMaterial(string);
+		check=null;
+		check=search.byMaterial(string);
+		for(home_information homeCheck:check)
+		{
+			assertEquals(homeCheck.material, material);
+			
+		}
 	}
 
 	@Then("A list of homes that matches the  material specification should be returned and printed on the console")
@@ -112,55 +140,87 @@ public class search_home {
 		search.printResult();
 	}
 
-	@When("I search about home by_number_of_bedroom {string}")
-	public void iSearchAboutHomeByNumberOfBedroom(String string) {
-		number_of_bedroom = Integer.parseInt(string);
-		search.byNumberOfBedrooms(number_of_bedroom);
-	}
+	
+		@When("I search about home by_number_of_bedroom {string}")
+		public void iSearchAboutHomeByNumberOfBedroom(String string) {
+			numberOfBedroom2 = Integer.parseInt(string);
+			check=null;
+			check=search.byNumberOfBedrooms(numberOfBedroom2);
+			for(home_information homeCheck:check)
+			{
+				assertEquals(homeCheck.numberOfBedroom,numberOfBedroom2);
+				
+			}
+			
+		}
 
-	@Then("A list of homes that matches the  number_of_bedroom specification should be returned and printed on the console")
-	public void aListOfHomesThatMatchesTheNumberOfBedroomSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		System.out.println("Search by number of bedrooms :" +number_of_bedroom);
-		search.printResult();
-	}
 
-	@When("I search about home by_number_of_bathroom {string}")
-	public void iSearchAboutHomeByNumberOfBathroom(String string) {
-		number_of_bathroom = Integer.parseInt(string);
-		search.byNumberOfBathrooms(number_of_bathroom);
 
-	}
+		@Then("A list of homes that matches the  number_of_bedroom specification should be returned and printed on the console")
+		public void aListOfHomesThatMatchesTheNumberOfBedroomSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+			System.out.println("Search by number of bedrooms :" +numberOfBedroom2);
+			search.printResult();
+		}
 
-	@Then("A list of homes that matches the  number_of_bathroom specification should be returned and printed on the console")
-	public void aListOfHomesThatMatchesTheNumberOfBathroomSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		System.out.println("Search by number of bathrooms :" +number_of_bathroom);
-		search.printResult();
-	}
+
+		@When("I search about home by_number_of_bathroom {string}")
+		public void iSearchAboutHomeByNumberOfBathroom(String string) {
+			numberOfBathroom2 = Integer.parseInt(string);
+			
+		}
+
+
+	
+		@Then("A list of homes that matches the  number_of_bathroom specification should be returned and printed on the console")
+		public void aListOfHomesThatMatchesTheNumberOfBathroomSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+			System.out.println("Search by number of bathrooms :" +numberOfBathroom2);
+			check=null;
+			check=search.byNumberOfBathrooms(numberOfBathroom2);
+			for(home_information homeCheck:check)
+			{
+				assertTrue(homeCheck.numberOfBathroom1==numberOfBathroom2);
+				
+			}
+			search.printResult();
+		}
 
 	@When("I search about home between {int} and {int}")
 	public void iSearchAboutHomeBetweenAnd(Integer int1, Integer int2) {
-		low_price = int1;
-		high_price = int2;
-		search.betweenRangeOfPrice(low_price, high_price);
+		lowPrice2 = int1;
+		highPrice2 = int2;
+		search.betweenRangeOfPrice(lowPrice2, highPrice2);
 
 	}
 
 	@Then("A list of homes that matches the  range of price specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheRangeOfPriceSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		System.out.println("Search by price between "+ low_price +","+ high_price);
+		System.out.println("Search by price between "+ lowPrice2 +","+ highPrice2);
+		check=null;
+		check=search.betweenRangeOfPrice(lowPrice2, highPrice2);
+		for(home_information homeCheck:check)
+		{
+			assertTrue(homeCheck.price>lowPrice2 && homeCheck.price<highPrice2);
+			
+		}
 		search.printResult();
 	}
 
 	@When("I search home below area {int}")
 	public void iSearchHomeBelowArea(Integer int1) {
-		area_less=int1;
-		search.byAreaBelow(int1.intValue());
+		arealess=int1;
+		//search.byAreaBelow(arealess.intValue());
 	}
 
 	@Then("A list of homes that matches the area specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheAreaSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		System.out.println("Search by area less than "+area_less);
-
+		System.out.println("Search by area less than "+arealess);
+		check=null;
+		check=search.byAreaBelow(arealess);
+		for(home_information homeCheck:check)
+		{
+			assertTrue(homeCheck.area<arealess);
+			
+		}
 		search.printResult();
 	}
 
@@ -170,46 +230,64 @@ public class search_home {
 			pets = true;
 		else
 			pets = false;
-		search.byAllowingPets(pets);
+		
 	}
 
 	@Then("A list of homes that matches the  Allowing pets specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheAllowingPetsSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by allowing pets");
-
+        check=null;
+        check=search.byAllowingPets(pets);
+        for(home_information homeCheck:check)
+		{
+			assertEquals(homeCheck.allowingPets1,pets);
+			
+		}
 		search.printResult();
 
 	}
 
 	@When("I search about home area between {int} and {int}")
 	public void iSearchAboutHomeAreaBetweenAnd(Integer int1, Integer int2) {
-		low_area = int1;
-		high_area = int2;
-		search.betweenRangeOfarea(low_area, high_area);
+		lowArea2 = int1;
+		highArea2 = int2;
 
 	}
 
 	@Then("A list of homes that matches the  range of area specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheRangeOfAreaSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		System.out.println("Search by area between "+low_area+" , "+high_area);
+		System.out.println("Search by area between "+lowArea2+" , "+highArea2);
+		check=null;
+		check=search.betweenRangeOfarea(lowArea2, highArea2);
+		 for(home_information homeCheck:check)
+			{
+				assertTrue(homeCheck.area>lowArea2&&homeCheck.area<highArea2);
+				
+			}
 		search.printResult();
 
 	}
 
 	@When("I search about home by lease length {string}")
 	public void iSearchAboutHomeByLeaseLength(String string) {
-		lease_length=string;
+		leaseLength=string;
 		if (string.equalsIgnoreCase("short"))
-			lease_len = 6;
+			leaseLen = 6;
 		else
-			lease_len = 12;
-		search.byLeaseLength(lease_len);
+			leaseLen = 12;
 
 	}
 
 	@Then("A list of homes that matches the  lease length specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheLeaseLengthSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		System.out.println("Search by lease length :" +lease_length);
+		System.out.println("Search by lease length :" +leaseLength);
+		check=null;
+		check=search.byLeaseLength(leaseLen);
+		for(home_information homeCheck:check)
+		{
+			assertEquals(leaseLen,homeCheck.leaseLength1);
+			
+		}
 		search.printResult();
 	}
 

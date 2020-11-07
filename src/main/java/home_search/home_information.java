@@ -6,11 +6,15 @@ public class home_information {
 	String placement;
 	int price;
 	int area;
+	boolean lessAreaYes;
+	boolean betweenAreaYes;
+	boolean lessPriceYes;
+	boolean betweenPriceYes;
 	String material;
-	int number_of_bedrooms;
-	int number_of_bathrooms;
-	boolean allowing_pets ; 
-	int lease_length;
+	int numberOfBedroom;
+	int numberOfBathroom1;
+	boolean allowingPets1 ; 
+	int leaseLength1;
 	String[]amenties;
 	public int getId() {
 		return id;
@@ -48,29 +52,29 @@ public class home_information {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	public int getNumber_of_bedrooms() {
-		return number_of_bedrooms;
+	public int getNumberOfBedrooms() {
+		return numberOfBedroom;
 	}
-	public void setNumber_of_bedrooms(int number_of_bedrooms) {
-		this.number_of_bedrooms = number_of_bedrooms;
+	public void setNumberOfBedrooms(int numberOfBedroom) {
+		this.numberOfBedroom = numberOfBedroom;
 	}
-	public int getNumber_of_bathrooms() {
-		return number_of_bathrooms;
+	public int getNumberOfBathrooms() {
+		return numberOfBathroom1;
 	}
-	public void setNumber_of_bathrooms(int number_of_bathrooms) {
-		this.number_of_bathrooms = number_of_bathrooms;
+	public void setNumberOfBathrooms(int numberOfBathroom1) {
+		this.numberOfBathroom1 = numberOfBathroom1;
 	}
-	public boolean isAllowing_pets() {
-		return allowing_pets;
+	public boolean isAllowingPets() {
+		return allowingPets1;
 	}
-	public void setAllowing_pets(boolean allowing_pets) {
-		this.allowing_pets = allowing_pets;
+	public void setAllowingPets(boolean allowingPets1) {
+		this.allowingPets1 = allowingPets1;
 	}
-	public int getLease_length() {
-		return lease_length;
+	public int getLeaseLength() {
+		return leaseLength1;
 	}
-	public void setLease_length(int lease_length) {
-		this.lease_length = lease_length;
+	public void setLeaseLength(int leaseLength1) {
+		this.leaseLength1 = leaseLength1;
 	}
 	public String[] getAmenties() {
 		return amenties;
