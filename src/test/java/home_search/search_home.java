@@ -222,6 +222,9 @@ public class search_home {
 			public void emailWithResultOfNumberOfBedroomShouldBeSendToUser1(String string) {
 				verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
 
+				
+				
+				
 			}
 
 
