@@ -7,35 +7,35 @@ import java.util.logging.Logger;
 public class MultiSpecHandler {
      List<GeneralSpec> specList;
      Search search;
-    ArrayList<home_information> resultArrayList;
-	private List<home_information> homeArray;
+     List<Homeinformation> resultArrayList;
+	private List<Homeinformation> homeArray;
 	boolean firstSpec = true;
 	 public static final Logger LOGGER = Logger.getLogger(MultiSpecHandler.class.getName());
-	public MultiSpecHandler(List<GeneralSpec> specList , List<home_information> homeArray) {
+	public MultiSpecHandler(List<GeneralSpec> specList , List<Homeinformation> homeArray) {
 		super();
 		this.specList = new ArrayList<GeneralSpec>(specList);
-		this.homeArray= new ArrayList<home_information>(homeArray);
+		this.homeArray= new ArrayList<Homeinformation>(homeArray);
 		
 		
 	}
 
 	
 
-	public ArrayList<home_information> result(){
+	public List<Homeinformation> result(){
 		
 		
 		for (GeneralSpec spec : specList) {
 			
 			if (firstSpec) {
 			for (int i=0;i<homeArray.size();i++) {
-				search= new Search ((ArrayList<home_information>) homeArray);
+				search= new Search ((ArrayList<Homeinformation>) homeArray);
 				resultArrayList=search.checkSpec(spec);
 			
 			} firstSpec=false;}
 			else 
 			{
 				for (int j=0;j<resultArrayList.size();j++) {
-			     search= new Search(resultArrayList);
+			     search= new Search((ArrayList<Homeinformation>) resultArrayList);
 			     resultArrayList=search.checkSpec(spec);
 						
 			}
@@ -44,7 +44,7 @@ public class MultiSpecHandler {
 		
 		
 		
-		search.bycombination(resultArrayList);
+		search.bycombination( resultArrayList);
 		return resultArrayList;
 	}
 
@@ -57,7 +57,7 @@ public class MultiSpecHandler {
 		}
 		else
 		{	
-		for (home_information home : resultArrayList) {
+		for (Homeinformation home : resultArrayList) {
 			home.printHomeInfo();
 			
 		}

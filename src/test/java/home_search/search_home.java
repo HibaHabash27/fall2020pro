@@ -12,7 +12,7 @@ import io.cucumber.java.en.When;
 import static org.mockito.Mockito.*;
 import org.picocontainer.*;
 public class search_home {
-	List<home_information> home_inf = new ArrayList<home_information>();
+	List<Homeinformation> home_inf = new ArrayList<Homeinformation>();
 	private MockEmailHolder mockHolder;
 	private WebEmailservice mailservice;
 	String type;
@@ -29,7 +29,7 @@ public class search_home {
 	List<List<String>> list;
     private static Search  search;
 	private  MultiSpecHandler multiSpecHandler;
-	public ArrayList<GeneralSpec> specList = new ArrayList<GeneralSpec>();
+	public List<GeneralSpec> specList = new ArrayList<GeneralSpec>();
 
 
 	
@@ -53,7 +53,7 @@ public class search_home {
 			String s2 = list2.get(1);
 			String[] tokens = ss.split("_");
 			String[] tokens2 = s2.split("_");
-			home_information home = new home_information();
+			Homeinformation home = new Homeinformation();
 			home.setId(i+1);
 			home.setType(tokens[0]);
 			home.setMaterial(tokens[1]);
@@ -77,10 +77,10 @@ public class search_home {
 			
 
 		}
-		 search = new Search((ArrayList<home_information>) home_inf);
+		 search = new Search((ArrayList<Homeinformation>) home_inf);
 
 	}
-	 List<home_information> check = new ArrayList<home_information>();
+	 List<Homeinformation> check = new ArrayList<Homeinformation>();
 	 
 
 	@When("I search about home by {string}")
@@ -94,7 +94,7 @@ public class search_home {
 		System.out.println("Search by type: "+type);
 		check.clear();
 		check.addAll(search.byType(type));
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			assertEquals(homeCheck.type, type);
 			
@@ -120,7 +120,7 @@ public class search_home {
        price_less=int1;
 		check.clear();
 		check=search.byPrice(int1);
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			assertTrue(homeCheck.price<int1);
 			
@@ -147,7 +147,7 @@ public class search_home {
 		placement=string;
 		check.clear();
 		check=search.byPlacement(string);
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			assertEquals(homeCheck.placement, placement);
 			
@@ -174,7 +174,7 @@ public class search_home {
 		material=string;
 		check.clear();
 		check=search.byMaterial(string);
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			assertEquals(homeCheck.material, material);
 			
@@ -201,7 +201,7 @@ public class search_home {
 			numberOfBedroom2 = Integer.parseInt(string);
 			check.clear();
 			check=search.byNumberOfBedrooms(numberOfBedroom2);
-			for(home_information homeCheck:check)
+			for(Homeinformation homeCheck:check)
 			{
 				assertEquals(homeCheck.numberOfBedroom,numberOfBedroom2);
 				
@@ -241,7 +241,7 @@ public class search_home {
 			System.out.println("Search by number of bathrooms :" +numberOfBathroom2);
 			check.clear();
 			check=search.byNumberOfBathrooms(numberOfBathroom2);
-			for(home_information homeCheck:check)
+			for(Homeinformation homeCheck:check)
 			{
 				assertEquals(homeCheck.numberOfBathroom1,numberOfBathroom2);
 				
@@ -272,7 +272,7 @@ public class search_home {
 		System.out.println("Search by price between "+ lowPrice2 +","+ highPrice2);
 		check.clear();
 		check=search.betweenRangeOfPrice(lowPrice2, highPrice2);
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			assertTrue(homeCheck.price>lowPrice2 && homeCheck.price<highPrice2);
 			
@@ -301,7 +301,7 @@ public class search_home {
 		System.out.println("Search by area less than "+arealess);
 		check.clear();
 		check=search.byAreaBelow(arealess);
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			assertTrue(homeCheck.area<arealess);
 			
@@ -333,7 +333,7 @@ public class search_home {
 
 		check.clear();
         check=search.byAllowingPets(pets);
-        for(home_information homeCheck:check)
+        for(Homeinformation homeCheck:check)
 		{
 			assertEquals(homeCheck.allowingPets1,pets);
 			
@@ -393,7 +393,7 @@ public class search_home {
 		System.out.println("Search by lease length :" +leaseLength);
 		check.clear();
 		check=search.byLeaseLength(leaseLen);
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			assertEquals(leaseLen,homeCheck.leaseLength1);
 			
@@ -421,7 +421,7 @@ public class search_home {
 		System.out.println("Search by amenities :"+ amenities);
 		check.clear();
 		check=search.byAmenities(amenities);
-		for(home_information homeCheck:check)
+		for(Homeinformation homeCheck:check)
 		{
 			for(String s:homeCheck.amenities)
 				if(amenities.equalsIgnoreCase(s))
@@ -499,7 +499,7 @@ public class search_home {
 			multiSpecHandler= new MultiSpecHandler(specList,home_inf);
 		    check=multiSpecHandler.result();
 			assertEquals(1,check.size());
-			for(home_information homeCheck:check)
+			for(Homeinformation homeCheck:check)
 			{
 				assertTrue(homeCheck.area <= highArea2 && homeCheck.area >= lowArea2);
 				

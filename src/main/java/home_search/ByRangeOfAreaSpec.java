@@ -10,7 +10,7 @@ public class ByRangeOfAreaSpec implements GeneralSpec {
 		this.highArea = highArea;
 	}
 
-public boolean isSpecMatch(home_information home) {
+public boolean isSpecMatch(Homeinformation home) {
 	return (home.area <= highArea && home.area >= lowArea);
 
 }

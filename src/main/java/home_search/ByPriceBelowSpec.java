@@ -9,7 +9,7 @@ public class ByPriceBelowSpec implements GeneralSpec {
 		
 	}
 
-	public boolean isSpecMatch(home_information home) {
+	public boolean isSpecMatch(Homeinformation home) {
 		return home.price<=this.price;
 
 	}

@@ -17,7 +17,7 @@ public class WebEmailservice {
 	  public static final Logger LOGGER = Logger.getLogger(WebEmailservice.class.getName());
 	
 	
-	public void sendMail(String mail,List<home_information> list)
+	public void sendMail(String mail,List<Homeinformation> list)
 	{
 		
 		LOGGER.info("send an email");
@@ -27,7 +27,7 @@ public class WebEmailservice {
 		
 		  emailSubject="test ";
 		  
-		  for(home_information list1 : list)
+		  for(Homeinformation list1 : list)
 		  {
 			  s.append(list1.type);
 			  s.append("/");

@@ -13,7 +13,7 @@ public class ByRangeOfPriceSpec implements GeneralSpec {
 
 
 
-	public boolean isSpecMatch(home_information home) {
+	public boolean isSpecMatch(Homeinformation home) {
 		return (home.price <= highPrice && home.price >= lowPrice);
 
 	}

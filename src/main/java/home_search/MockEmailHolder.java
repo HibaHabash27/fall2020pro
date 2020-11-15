@@ -6,7 +6,7 @@ public class MockEmailHolder {
     private  WebEmailservice emailservice=mock(WebEmailservice.class);
 	public MockEmailHolder(Search  home)
 	{
-		home.setemail(emailservice);
+		Search.setemail(emailservice);
 	}
 	
 	

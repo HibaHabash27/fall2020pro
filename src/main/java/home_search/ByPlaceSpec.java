@@ -9,7 +9,7 @@ public class ByPlaceSpec implements GeneralSpec {
 		
 	}
 
-public boolean isSpecMatch(home_information home) {
+public boolean isSpecMatch(Homeinformation home) {
 	return home.placement.equalsIgnoreCase(this.place);
 
 }

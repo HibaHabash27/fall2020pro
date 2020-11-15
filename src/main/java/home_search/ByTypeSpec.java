@@ -9,7 +9,7 @@ public class ByTypeSpec implements GeneralSpec {
 		
 	}
 	
-	public boolean isSpecMatch(home_information home) {
+	public boolean isSpecMatch(Homeinformation home) {
 		return home.type.equalsIgnoreCase(this.type);
 	}
 

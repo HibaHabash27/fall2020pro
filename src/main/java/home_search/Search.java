@@ -8,24 +8,20 @@ import java.util.logging.Logger;
 
 public class Search {
    private static WebEmailservice mailservice;
-	List<home_information> homeResult;
+	List<Homeinformation> homeResult;
 	boolean flag;
 	GeneralSpec spec;
-	 List<home_information> homeArray1;
-	home_information home;
+	 List<Homeinformation> homeArray1;
+	Homeinformation home;
 	String emailAddress="hayasam@najah.edu";
 
 	public static final Logger LOGGER = Logger.getLogger(Search.class.getName());
-	public Search(ArrayList<home_information> homeArray) {
-		homeArray1=new ArrayList<home_information>(homeArray);
-		homeResult=new ArrayList<home_information>();
+	
+	public Search(ArrayList<Homeinformation> homeArray) {
+		homeArray1=new ArrayList<Homeinformation>(homeArray);
+		homeResult=new ArrayList<Homeinformation>();
 		
-		/*for(int i=0;i<homeArray.size();i++)
-		{
-			homeArray1.add(homeArray.get(i));
-			
-			
-		}*/
+	
 	
 
 	}
@@ -38,7 +34,7 @@ public class Search {
 	
 
 
-	public ArrayList<home_information> byType(String type) {
+	public List<Homeinformation> byType(String type) {
 		 spec = new ByTypeSpec (type);
 		
 		 
@@ -47,7 +43,7 @@ public class Search {
 	}
 
 
-	public ArrayList<home_information> byPlacement(String place) {
+	public List<Homeinformation> byPlacement(String place) {
 		
 		spec = new ByPlaceSpec (place);
 		 mailservice.sendMail(emailAddress, checkSpec(spec));
@@ -58,7 +54,7 @@ public class Search {
 	
 
 	
-	public ArrayList<home_information> printResult() {
+	public List<Homeinformation> printResult() {
 		
 
 		if (homeResult.isEmpty()) {
@@ -66,19 +62,19 @@ public class Search {
 		}
 		else
 		{	
-		for (home_information home2 : homeResult) {
+		for (Homeinformation home2 : homeResult) {
 			home2.printHomeInfo();
 			
 		}
 		}
 		
-		return (ArrayList<home_information>) homeResult;
+		return  homeResult;
 	}
 
 	
 	
 	
-	public ArrayList<home_information> byPrice(int price) {
+	public List<Homeinformation> byPrice(int price) {
 		
 	 spec = new ByPriceBelowSpec (price);
 	 mailservice.sendMail(emailAddress, checkSpec(spec));
@@ -90,7 +86,7 @@ public class Search {
 	
 	
 
-	public  ArrayList<home_information> byMaterial(String material) {
+	public  List<Homeinformation> byMaterial(String material) {
 		 spec = new ByMaterialSpec (material);
 		mailservice.sendMail(emailAddress,checkSpec(spec));
 
@@ -98,14 +94,14 @@ public class Search {
 
 	}
 
-	public ArrayList<home_information> byNumberOfBedrooms(int numberOfBedrooms) {
+	public List<Homeinformation> byNumberOfBedrooms(int numberOfBedrooms) {
 		 spec = new ByNumberOfBedroomsSpec (numberOfBedrooms);
 		 mailservice.sendMail(emailAddress, checkSpec(spec));
 
 		return checkSpec(spec);
 	}
 
-	public ArrayList<home_information> byNumberOfBathrooms(int numberOfBathrooms) {
+	public List<Homeinformation> byNumberOfBathrooms(int numberOfBathrooms) {
 		
 		 spec = new ByNumberOfBathroomsSpec ( numberOfBathrooms);
 		 mailservice.sendMail(emailAddress, checkSpec(spec));
@@ -113,7 +109,7 @@ public class Search {
 		return checkSpec(spec);
 	}
 
-	public ArrayList<home_information> betweenRangeOfPrice(int lowPrice, int highPrice) {
+	public List<Homeinformation> betweenRangeOfPrice(int lowPrice, int highPrice) {
 		
 		 spec = new ByRangeOfPriceSpec ( lowPrice,highPrice);
 		 mailservice.sendMail(emailAddress, checkSpec(spec));
@@ -121,7 +117,7 @@ public class Search {
 		return checkSpec(spec);
 	}
 
-	public ArrayList<home_information> betweenRangeOfarea(int lowArea, int highArea) {
+	public List<Homeinformation> betweenRangeOfarea(int lowArea, int highArea) {
 		
 		
 		 spec = new ByRangeOfAreaSpec ( lowArea,highArea);
@@ -130,7 +126,7 @@ public class Search {
 		return checkSpec(spec);
 	}
 
-	public  ArrayList<home_information> byAreaBelow(int area1) {
+	public  List<Homeinformation> byAreaBelow(int area1) {
 		 
 		 spec = new ByAreaBelowSpec ( area1);
 		
@@ -141,7 +137,7 @@ public class Search {
 
 
 
-	public  ArrayList<home_information>  byAllowingPets(boolean pets) {
+	public  List<Homeinformation>  byAllowingPets(boolean pets) {
 		
 		 spec = new ByAllowingPetsSpec ( pets);
 	 mailservice.sendMail(emailAddress, checkSpec(spec));
@@ -151,7 +147,7 @@ public class Search {
 	}
 
 
-	public  ArrayList<home_information> byLeaseLength(int leaseLength) {
+	public  List<Homeinformation> byLeaseLength(int leaseLength) {
 		
 		 spec = new ByLeaseLengthSpec ( leaseLength);
 		 mailservice.sendMail(emailAddress, checkSpec(spec));
@@ -162,7 +158,7 @@ public class Search {
 
 	}
 
-	public ArrayList<home_information> byAmenities(String amenity) {
+	public List<Homeinformation> byAmenities(String amenity) {
 		
 		 spec = new ByAmenitySpec ( amenity);
 		 mailservice.sendMail(emailAddress, checkSpec(spec));
@@ -171,7 +167,7 @@ public class Search {
 
 	}
 
-	public  void bycombination(ArrayList<home_information> a) {
+	public  void bycombination(List<Homeinformation> a) {
 		
 		
 
@@ -184,16 +180,16 @@ public class Search {
 	}
 
 
-	public ArrayList<home_information> checkSpec(GeneralSpec spec) {
+	public List<Homeinformation> checkSpec(GeneralSpec spec) {
 		
 		
-		for(home_information a:homeArray1 )
+		for(Homeinformation a:homeArray1 )
 			{
 			 
 			if (spec.isSpecMatch(a))
 				homeResult.add(a);
 		}
-		return (ArrayList<home_information>) homeResult;
+		return  homeResult;
 	}
 
 }

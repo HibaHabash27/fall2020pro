@@ -1,7 +1,7 @@
 package home_search;
 import java.util.logging.*;
 
-public class home_information {
+public class Homeinformation {
 	int id ;
 	String type;
 	String placement;
@@ -18,7 +18,7 @@ public class home_information {
 	int leaseLength1;
 	String[]amenities;
 	StringBuilder build;
-	  public static final Logger LOGGER = Logger.getLogger(home_information.class.getName());
+	  public static final Logger LOGGER = Logger.getLogger(Homeinformation.class.getName());
 	  public int getId() {
 		return id;
 	}

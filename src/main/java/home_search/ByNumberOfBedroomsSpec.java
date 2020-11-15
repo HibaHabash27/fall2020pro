@@ -8,7 +8,7 @@ public class ByNumberOfBedroomsSpec implements GeneralSpec {
 		this.numberOfBedrooms = numberOfBedrooms;
 	}
 
-	public boolean isSpecMatch(home_information home) {
+	public boolean isSpecMatch(Homeinformation home) {
 		return home.numberOfBedroom == numberOfBedrooms;
 
 	}

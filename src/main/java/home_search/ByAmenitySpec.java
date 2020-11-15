@@ -9,7 +9,7 @@ public class ByAmenitySpec implements GeneralSpec {
 		
 	}
 
-	public boolean isSpecMatch(home_information home) {
+	public boolean isSpecMatch(Homeinformation home) {
 		boolean flag = false;
 		for (String am : home.amenities) {
 			if (amenity.equalsIgnoreCase(am)) {
