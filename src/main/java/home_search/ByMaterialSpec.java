@@ -11,6 +11,7 @@ public class ByMaterialSpec implements GeneralSpec {
 	  public boolean isSpecMatch(Homeinformation home) {
 			return home.material.equalsIgnoreCase(material);
 
+			
 	}
 	}
 
