@@ -2,7 +2,8 @@ package home_search;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
+import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
@@ -12,8 +13,9 @@ import io.cucumber.java.en.When;
 import static org.mockito.Mockito.*;
 import org.picocontainer.*;
 public class search_home {
-	CopyOnWriteArrayList<home_information> home_inf = new CopyOnWriteArrayList<home_information>();
+	ArrayList<home_information> home_inf = new ArrayList<home_information>();
 	private mockEmailHolder mockHolder;
+	private webEmailservice mailservice;
 	String type;
 	int price_less;
 	int arealess;
@@ -25,27 +27,31 @@ public class search_home {
 	int lowPrice2, highPrice2, homeArea2, lowArea2, highArea2;
 	boolean pets;
 	String leaseLength;
-	java.util.List<java.util.List<String>> list;
-    Search  search;
-	
+	List<List<String>> list;
+    private static Search  search;
+	private static MultiSpec search1;
+
 	//Dependency injection
    
-    public search_home (Search search, mockEmailHolder mockHolder1) 
+  
+////////////// i think i should delete this /////////////////////	
+	
+	public search_home (Search search, mockEmailHolder mockHolder1) 
    {
  	this.search=search;
- 	mockHolder1=new mockEmailHolder(search);
   	mockHolder=mockHolder1;
    }
-    
+   
+
+   
 	@Given("these homes are contained in the system")
 	public void theseHomesAreContainedInTheSystem(io.cucumber.datatable.DataTable dataTable) {
 		
-
-
+      
 		list = dataTable.asLists();
 		for (int i = 0; i < list.size(); i++) {
 			
-			java.util.List<String> list2 = list.get(i);
+			List<String> list2 = list.get(i);
 			String ss = list2.get(0);
 			String s2 = list2.get(1);
 			String[] tokens = ss.split("_");
@@ -74,33 +80,36 @@ public class search_home {
 			
 
 		}
-		search = new Search(home_inf);
+		 search = new Search(home_inf);
 
 	}
-	CopyOnWriteArrayList<home_information> check = new CopyOnWriteArrayList<home_information>();
+	 ArrayList<home_information> check = new ArrayList<home_information>();
+	 
+
 	@When("I search about home by {string}")
 	public void iSearchAboutHomeBy(String string) {
 		type=string;
-		check=null;
-		check=search.byType(string);
+		
+	}
+
+	@Then("A list of homes that matches the  type specification should be returned and printed on the console")
+	public void aListOfHomesThatMatchesTheTypeSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
+		System.out.println("Search by type: "+type);
+		check.clear();
+		check.addAll(search.byType(type));
 		for(home_information homeCheck:check)
 		{
 			assertEquals(homeCheck.type, type);
 			
 		}
 
-	}
-
-	@Then("A list of homes that matches the  type specification should be returned and printed on the console")
-	public void aListOfHomesThatMatchesTheTypeSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
-		System.out.println("Search by type: "+type);
 		search.printResult();
 		
 
 	}
 
-		@Then("email with result should be send to user {string}")
-		public void emailWithResultShouldBeSendToUser(String string) {
+	@Then("email with result should be send to user {string}")
+	public void emailWithResultShouldBeSendToUser(String string) {
 			
 		verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
 		
@@ -112,7 +121,7 @@ public class search_home {
 	@When("I search about home with price less than {int}")
 	public void iSearchAboutHomeWithPriceLessThan(Integer int1) {
        price_less=int1;
-       check=null;
+		check.clear();
 		check=search.byPrice(int1);
 		for(home_information homeCheck:check)
 		{
@@ -126,11 +135,20 @@ public class search_home {
 		System.out.println("Search by price less than "+price_less);
 		search.printResult();
 	}
+	
+		@Then("email with result should be send to user1 {string}")
+		public void emailWithResultShouldBeSendToUser1(String string) {
+    	verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+		
+		}
+
+
+
 
 	@When("i search about home by_placement {string}")
 	public void iSearchAboutHomeByPlacement(String string) {
 		placement=string;
-		check=null;
+		check.clear();
 		check=search.byPlacement(string);
 		for(home_information homeCheck:check)
 		{
@@ -144,11 +162,20 @@ public class search_home {
 		System.out.println("Search by placement :"+ placement);
         search.printResult();
 	}
+	
+
+		@Then("email with result of placement should be send to user1 {string}")
+		public void emailWithResultOfPlacementShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+		}
+
+
+
 
 	@When("I search about home by_material {string}")
 	public void iSearchAboutHomeByMaterial(String string) {
 		material=string;
-		check=null;
+		check.clear();
 		check=search.byMaterial(string);
 		for(home_information homeCheck:check)
 		{
@@ -163,11 +190,19 @@ public class search_home {
 		search.printResult();
 	}
 
+		@Then("email with result of material should be send to user1 {string}")
+		public void emailWithResultOfMaterialShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+		}
+
+
+
+
 	
 		@When("I search about home by_number_of_bedroom {string}")
 		public void iSearchAboutHomeByNumberOfBedroom(String string) {
 			numberOfBedroom2 = Integer.parseInt(string);
-			check=null;
+			check.clear();
 			check=search.byNumberOfBedrooms(numberOfBedroom2);
 			for(home_information homeCheck:check)
 			{
@@ -184,6 +219,16 @@ public class search_home {
 			System.out.println("Search by number of bedrooms :" +numberOfBedroom2);
 			search.printResult();
 		}
+		
+
+			@Then("email with result of numberOfBedroom should be send to user1 {string}")
+			public void emailWithResultOfNumberOfBedroomShouldBeSendToUser1(String string) {
+				verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+
+			}
+
+
+
 
 
 		@When("I search about home by_number_of_bathroom {string}")
@@ -197,7 +242,7 @@ public class search_home {
 		@Then("A list of homes that matches the  number_of_bathroom specification should be returned and printed on the console")
 		public void aListOfHomesThatMatchesTheNumberOfBathroomSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 			System.out.println("Search by number of bathrooms :" +numberOfBathroom2);
-			check=null;
+			check.clear();
 			check=search.byNumberOfBathrooms(numberOfBathroom2);
 			for(home_information homeCheck:check)
 			{
@@ -206,6 +251,16 @@ public class search_home {
 			}
 			search.printResult();
 		}
+		
+
+			@Then("email with result of numberOfBathroom should be send to user1 {string}")
+			public void emailWithResultOfNumberOfBathroomShouldBeSendToUser1(String string) {
+				verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+
+			}
+
+
+
 
 	@When("I search about home between {int} and {int}")
 	public void iSearchAboutHomeBetweenAnd(Integer int1, Integer int2) {
@@ -218,7 +273,7 @@ public class search_home {
 	@Then("A list of homes that matches the  range of price specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheRangeOfPriceSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by price between "+ lowPrice2 +","+ highPrice2);
-		check=null;
+		check.clear();
 		check=search.betweenRangeOfPrice(lowPrice2, highPrice2);
 		for(home_information homeCheck:check)
 		{
@@ -227,6 +282,16 @@ public class search_home {
 		}
 		search.printResult();
 	}
+	
+
+		@Then("email with result of rangeOfPrices should be send to user1 {string}")
+		public void emailWithResultOfRangeOfPricesShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(2)).sendMail(string, check);
+
+		}
+
+
+
 
 	@When("I search home below area {int}")
 	public void iSearchHomeBelowArea(Integer int1) {
@@ -237,7 +302,7 @@ public class search_home {
 	@Then("A list of homes that matches the area specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheAreaSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by area less than "+arealess);
-		check=null;
+		check.clear();
 		check=search.byAreaBelow(arealess);
 		for(home_information homeCheck:check)
 		{
@@ -246,6 +311,15 @@ public class search_home {
 		}
 		search.printResult();
 	}
+
+		@Then("email with result of belowArea should be send to user1 {string}")
+		public void emailWithResultOfBelowAreaShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+
+		}
+
+
+
 
 	@When("I search about home by_Alolowing pets {string}")
 	public void iSearchAboutHomeByAlolowingPets(String string) {
@@ -260,7 +334,7 @@ public class search_home {
 	public void aListOfHomesThatMatchesTheAllowingPetsSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by allowing pets");
 
-        check=null;
+		check.clear();
         check=search.byAllowingPets(pets);
         for(home_information homeCheck:check)
 		{
@@ -271,6 +345,15 @@ public class search_home {
 		search.printResult();
 
 	}
+	
+		@Then("email with result of allowingPets should be send to user1 {string}")
+		public void emailWithResultOfAllowingPetsShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+
+		}
+
+
+
 
 	@When("I search about home area between {int} and {int}")
 	public void iSearchAboutHomeAreaBetweenAnd(Integer int1, Integer int2) {
@@ -282,7 +365,7 @@ public class search_home {
 	@Then("A list of homes that matches the  range of area specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheRangeOfAreaSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by area between "+lowArea2+" , "+highArea2);
-		check=null;
+		check.clear();
 		check=search.betweenRangeOfarea(lowArea2, highArea2);
 		 for(home_information homeCheck:check)
 			{
@@ -292,6 +375,15 @@ public class search_home {
 		search.printResult();
 
 	}
+	
+		@Then("email with result of areaRange should be send to user1 {string}")
+		public void emailWithResultOfAreaRangeShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+
+		}
+
+
+
 
 	@When("I search about home by lease length {string}")
 	public void iSearchAboutHomeByLeaseLength(String string) {
@@ -306,7 +398,7 @@ public class search_home {
 	@Then("A list of homes that matches the  lease length specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheLeaseLengthSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by lease length :" +leaseLength);
-		check=null;
+		check.clear();
 		check=search.byLeaseLength(leaseLen);
 		for(home_information homeCheck:check)
 		{
@@ -315,6 +407,14 @@ public class search_home {
 		}
 		search.printResult();
 	}
+
+		@Then("email with result of leaseLength should be send to user1 {string}")
+		public void emailWithResultOfLeaseLengthShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+
+		}
+
+
 
 	@When("I search about home by Amenities {string}")
 	public void iSearchAboutHomeByAmenities(String string) {
@@ -326,19 +426,105 @@ public class search_home {
 	@Then("A list of homes that matches the  Amenities specification should be returned and printed on the console")
 	public void aListOfHomesThatMatchesTheAmenitiesSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 		System.out.println("Search by amenities :"+ amenities);
+		check.clear();
+		check=search.byAmenities(amenities);
+		for(home_information homeCheck:check)
+		{
+			for(String s:homeCheck.amenities)
+				if(amenities.equalsIgnoreCase(s))
+		      	assertEquals(amenities, s);
+			
+		}
 		search.printResult();
 
 	}
 	
-	
+
+		@Then("email with result of amenities should be send to user1 {string}")
+		public void emailWithResultOfAmenitiesShouldBeSendToUser1(String string) {
+			verify(mockHolder.getEmail(),times(2)).sendMail(string, check);
+
+		}
+
+
+
+		MultiSpec s1=new MultiSpec();
+
+			@When("I search about home area13 between {int} and {int}")
+			public void iSearchAboutHomeArea13BetweenAnd(Integer int1, Integer int2) {
+				lowArea2 = int1;
+				highArea2 = int2;
+				String ss1=int1.toString();
+				String ss2=int2.toString();
+				check.clear();
+				
+				s1.searchMore(home_inf, "areaRange", ss1,ss2);
+				check.addAll(s1.returnArray());
+				
+			  
+			}
+			
+				@When("I search about home by_material13 {string}")
+				public void iSearchAboutHomeByMaterial13(String string) {
+				    material=string;
+				   s1.searchMore(check, "material", string);
+				   check.clear();
+				   check.addAll(s1.returnArray());
+
+
+				}
+				
+
+					@When("I search about home by placement13 {string}")
+					public void iSearchAboutHomeByPlacement13(String string) {
+						placement=string;
+						 s1.searchMore(check, "placement",string);
+						 check.clear();
+						   check.addAll(s1.returnArray());
+					}
+					
+					Boolean p=false;
+						@When("I search about home by Allowing_pets {string}")
+						public void iSearchAboutHomeByAllowingPets(String string) {
+							
+							if(string.equalsIgnoreCase("YES"))
+								p=true;
+							s1.searchMore(check, "allowingPets",string);
+							 check.clear();
+							   check.addAll(s1.returnArray());						}
+
+
+
 
 		@Then("A list of homes that matches the previous specification should be returned and printed on the console")
 		public void aListOfHomesThatMatchesThePreviousSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 			System.out.println("Search more than one attribute");
+			
+			search.bycombination(check);
+			assertEquals(1,check.size());
+			for(home_information homeCheck:check)
+			{
+				assertTrue(homeCheck.area <= highArea2 && homeCheck.area >= lowArea2);
+				
+				assertEquals(placement,homeCheck.placement);
+				assertEquals(material, homeCheck.material);
+				assertEquals(p, homeCheck.allowingPets1);
+				
+				
+			}
 
-			search.printResult();
+			s1.print();
 
 		}
+		
+			@Then("email with result of Combination should be send to user1 {string}")
+			public void emailWithResultOfCombinationShouldBeSendToUser1(String string) {
+				verify(mockHolder.getEmail(),times(1)).sendMail(string, check);
+
+			}
+
+
+
 
 
 

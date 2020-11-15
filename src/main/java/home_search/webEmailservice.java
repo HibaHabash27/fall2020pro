@@ -5,21 +5,28 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class webEmailservice {
-	final String senderEmailID = "rahafnawas6@gmail.com@gmail.com";
-	final String senderPassword = "2324rahaf123";
-	final String emailSMTPserver = "smtp.gmail.com";
+	
+	final String senderEmailID = "rahafnawas6@gmail.com";
+	final String senderPassword = "2324roro";
+	final String emailSMTPserver = "smtp.gmail.com"; 			
 	final String emailServerPort = "465";
 	String receiverEmailID = null;
 	static String emailSubject = "Test Mail";
 	static String emailBody ;
-	public void sendMail(String mail,CopyOnWriteArrayList<home_information> list)
+	
+	
+	
+	public void sendMail(String mail,ArrayList<home_information> arrayList)
 	{
+		
+		System.out.println("send an email");
+		
 		 
 		  this.receiverEmailID=mail; 
-		  // Subject
+		
 		  this.emailSubject="test ";
 		  // Body
-		  for(home_information list1 : list)
+		  for(home_information list1 : arrayList)
 		  {
 			this.emailBody=this.emailBody+list1.type+" "+list1.material+" "+list1.placement+" "+list1.price+" "+list1.numberOfBathroom1+" "+list1.numberOfBedroom+"\n";  
 		  }
@@ -48,7 +55,7 @@ public class webEmailservice {
 		  
 		  catch (Exception mex){
 		  mex.printStackTrace();}
-		  
+		
 		  
 		  }
 		  public class SMTPAuthenticator extends javax.mail.Authenticator
@@ -57,8 +64,11 @@ public class webEmailservice {
 		  {
 		  return new PasswordAuthentication(senderEmailID, senderPassword);
 		  }
-		  }
+		  } 
+		  
 
+	
+	
 	}
 
 

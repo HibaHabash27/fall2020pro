@@ -10,7 +10,7 @@ The System has a repository of homes with their specifications (type-material-pl
 Scenario Outline: Search home by type 
 	When I search about home by <type> 
 	Then A list of homes that matches the  type specification should be returned and printed on the console 
-	And  email with result should be send to user "rahafnawas6@gmail.com"
+	And  email with result should be send to user "hayasam@najah.edu"
 	Examples: 
 		|type|
 		|"HOUSE"|
@@ -19,11 +19,12 @@ Scenario Outline: Search home by type
 Scenario: Search about home with less than a specific price 
 	When I search about home with price less than 400 
 	Then A list of homes that matches the price specification should be returned and printed on the console 
-	
+	And  email with result should be send to user1 "hayasam@najah.edu"
 #1. By Placement/ City, Village	
 Scenario Outline: Search home by placement 
 	When i search about home by_placement <placement> 
 	Then A list of homes that matches the  placement specification should be returned and printed on the console 
+	And  email with result of placement should be send to user1 "hayasam@najah.edu"
 	Examples: 
 		|placement|
 		|"CITY"|
@@ -32,6 +33,8 @@ Scenario Outline: Search home by placement
 Scenario Outline: Search home by material 
 	When I search about home by_material <material> 
 	Then A list of homes that matches the  material specification should be returned and printed on the console 
+    And  email with result of material should be send to user1 "hayasam@najah.edu"
+	
 	Examples: 
 		|material|
 		|"STONE"|
@@ -42,6 +45,7 @@ Scenario Outline: Search home by material
 Scenario Outline: Search home by number_of_bedroom 
 	When I search about home by_number_of_bedroom <number_of_bedroom> 
 	Then A list of homes that matches the  number_of_bedroom specification should be returned and printed on the console 
+	And  email with result of numberOfBedroom should be send to user1 "hayasam@najah.edu"
 	Examples: 
 		|number_of_bedroom|
 		|"1"|
@@ -53,6 +57,8 @@ Scenario Outline: Search home by number_of_bedroom
 Scenario Outline: Search home by number_of_bathroom 
 	When I search about home by_number_of_bathroom <number_of_bathroom> 
 	Then A list of homes that matches the  number_of_bathroom specification should be returned and printed on the console 
+	And  email with result of numberOfBathroom should be send to user1 "hayasam@najah.edu"
+	
 	Examples: 
 		|number_of_bathroom|
 		|"1"|
@@ -63,7 +69,7 @@ Scenario Outline: Search home by number_of_bathroom
 Scenario: Search home between range_of_prices 
 	When I search about home between 200 and 500  
 	Then A list of homes that matches the  range of price specification should be returned and printed on the console 
-	
+	And  email with result of rangeOfPrices should be send to user1 "hayasam@najah.edu"
 
 
 
@@ -71,17 +77,21 @@ Scenario: Search home between range_of_prices
 Scenario: Search home below specific area 
 	When I search home below area 400 
 	Then A list of homes that matches the area specification should be returned and printed on the console 
+	And  email with result of belowArea should be send to user1 "hayasam@najah.edu"
 
 
 #6. By between range of Areas/ meter square
 Scenario: Search home between range_of_Areas
 	When I search about home area between 200 and 500  
 	Then A list of homes that matches the  range of area specification should be returned and printed on the console 
+	And  email with result of areaRange should be send to user1 "hayasam@najah.edu"
 	
 #9. By Allow Pets/ Yes, No
 Scenario Outline: Search home by Allowing_pets
 	When I search about home by_Alolowing pets <Allowed> 
-	Then A list of homes that matches the  Allowing pets specification should be returned and printed on the console 
+	Then A list of homes that matches the  Allowing pets specification should be returned and printed on the console
+	And  email with result of allowingPets should be send to user1 "hayasam@najah.edu"
+	 
 	Examples: 
 		|Allowed|
 		|"YES"|
@@ -91,6 +101,8 @@ Scenario Outline: Search home by Allowing_pets
 Scenario Outline: Search home by lease_Length
 	When I search about home by lease length <lease_length> 
 	Then A list of homes that matches the  lease length specification should be returned and printed on the console 
+	And  email with result of leaseLength should be send to user1 "hayasam@najah.edu"
+	
 	Examples: 
 		|lease_length|
 		|"SHORT"|
@@ -99,7 +111,9 @@ Scenario Outline: Search home by lease_Length
 #Swimming Pool
 Scenario Outline: Search home by Amenities
 	When I search about home by Amenities <Amenities> 
-	Then A list of homes that matches the  Amenities specification should be returned and printed on the console 
+	Then A list of homes that matches the  Amenities specification should be returned and printed on the console
+	And  email with result of amenities should be send to user1 "hayasam@najah.edu"
+ 
 	Examples: 
 		|Amenities|
 		|"AIRCONDITIONING"|
@@ -109,11 +123,12 @@ Scenario Outline: Search home by Amenities
 		|"SWIMMING POOL"|
 
 Scenario: Search By Combination of at least 2 of the above mentioned scenarios
-	When I search about home area between 100 and 500 
-	And  I search about home by_material "BRICK"
-	And  I search about home by Amenities "Elevator"
+	When I search about home area13 between 100 and 500 
+	And  I search about home by_material13 "BRICK"
+	And  I search about home by placement13 "CITY"
+	And  I search about home by Allowing_pets "NO"
 	Then A list of homes that matches the previous specification should be returned and printed on the console 
-
+    And  email with result of Combination should be send to user1 "hayasam@najah.edu"
 
 
 
