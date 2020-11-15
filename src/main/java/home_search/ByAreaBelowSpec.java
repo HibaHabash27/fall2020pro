@@ -11,6 +11,7 @@ public class ByAreaBelowSpec implements GeneralSpec {
 
 	public boolean isSpecMatch(home_information home) {
 		return (home.area < area1);
+		//b
 	}
 
 }
