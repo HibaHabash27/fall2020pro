@@ -1,34 +1,37 @@
 package home_search;
 
+
+
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class Search {
-   private static webEmailservice mailservice;
-	ArrayList<home_information> homeResult;
+   private static WebEmailservice mailservice;
+	List<home_information> homeResult;
 	boolean flag;
 	GeneralSpec spec;
-	 ArrayList<home_information> homeArray1;
+	 List<home_information> homeArray1;
 	home_information home;
+	String emailAddress="hayasam@najah.edu";
 
-
+	public static final Logger LOGGER = Logger.getLogger(Search.class.getName());
 	public Search(ArrayList<home_information> homeArray) {
-		homeArray1=new ArrayList<home_information>();
+		homeArray1=new ArrayList<home_information>(homeArray);
 		homeResult=new ArrayList<home_information>();
 		
-		for(int i=0;i<homeArray.size();i++)
+		/*for(int i=0;i<homeArray.size();i++)
 		{
 			homeArray1.add(homeArray.get(i));
 			
 			
-		}
+		}*/
 	
 
 	}
-	public void setemail(webEmailservice webemail) {
+	public static void setemail(WebEmailservice webemail1) {
 		
-		this.mailservice=webemail;
+		mailservice=webemail1;
 		}
 
 
@@ -39,6 +42,7 @@ public class Search {
 		 spec = new ByTypeSpec (type);
 		
 		 
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
 		return checkSpec(spec);
 	}
 
@@ -46,6 +50,8 @@ public class Search {
 	public ArrayList<home_information> byPlacement(String place) {
 		
 		spec = new ByPlaceSpec (place);
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
+
 		return checkSpec(spec);
 		
 	}
@@ -56,16 +62,17 @@ public class Search {
 		
 
 		if (homeResult.isEmpty()) {
-			System.out.println("There is no house with such specifications :( ");	
+			LOGGER.info("There is no house with such specifications :( ");	
 		}
 		else
-			
-		for (home_information home : homeResult) {
-			home.printHomeInfo();
+		{	
+		for (home_information home2 : homeResult) {
+			home2.printHomeInfo();
 			
 		}
+		}
 		
-		return homeResult;
+		return (ArrayList<home_information>) homeResult;
 	}
 
 	
@@ -74,7 +81,9 @@ public class Search {
 	public ArrayList<home_information> byPrice(int price) {
 		
 	 spec = new ByPriceBelowSpec (price);
-	 return checkSpec(spec);
+	 mailservice.sendMail(emailAddress, checkSpec(spec));
+
+		return checkSpec(spec);
 	}
 	
 	
@@ -83,25 +92,32 @@ public class Search {
 
 	public  ArrayList<home_information> byMaterial(String material) {
 		 spec = new ByMaterialSpec (material);
+		mailservice.sendMail(emailAddress,checkSpec(spec));
+
 		return checkSpec(spec);
 
 	}
 
 	public ArrayList<home_information> byNumberOfBedrooms(int numberOfBedrooms) {
 		 spec = new ByNumberOfBedroomsSpec (numberOfBedrooms);
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
+
 		return checkSpec(spec);
 	}
 
 	public ArrayList<home_information> byNumberOfBathrooms(int numberOfBathrooms) {
 		
 		 spec = new ByNumberOfBathroomsSpec ( numberOfBathrooms);
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
+
 		return checkSpec(spec);
 	}
 
 	public ArrayList<home_information> betweenRangeOfPrice(int lowPrice, int highPrice) {
 		
 		 spec = new ByRangeOfPriceSpec ( lowPrice,highPrice);
-		 
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
+
 		return checkSpec(spec);
 	}
 
@@ -109,7 +125,8 @@ public class Search {
 		
 		
 		 spec = new ByRangeOfAreaSpec ( lowArea,highArea);
-		 
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
+
 		return checkSpec(spec);
 	}
 
@@ -117,7 +134,7 @@ public class Search {
 		 
 		 spec = new ByAreaBelowSpec ( area1);
 		
-		 
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
 
 		return checkSpec(spec);
 	}
@@ -127,7 +144,7 @@ public class Search {
 	public  ArrayList<home_information>  byAllowingPets(boolean pets) {
 		
 		 spec = new ByAllowingPetsSpec ( pets);
-	     
+	 mailservice.sendMail(emailAddress, checkSpec(spec));
 
 		return checkSpec(spec);
 
@@ -137,7 +154,7 @@ public class Search {
 	public  ArrayList<home_information> byLeaseLength(int leaseLength) {
 		
 		 spec = new ByLeaseLengthSpec ( leaseLength);
-		 
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
 
 		
 		
@@ -148,44 +165,35 @@ public class Search {
 	public ArrayList<home_information> byAmenities(String amenity) {
 		
 		 spec = new ByAmenitySpec ( amenity);
-		
+		 mailservice.sendMail(emailAddress, checkSpec(spec));
 
 		return checkSpec(spec);
 
 	}
 
-	public  ArrayList<home_information> bycombination(ArrayList<home_information> a) {
+	public  void bycombination(ArrayList<home_information> a) {
 		
 		
 
-		 mailservice.sendMail("hayasam@najah.edu", a);
+		 mailservice.sendMail(emailAddress, a);
 
 		
 		
-		return a;
+		
 
 	}
 
 
-	private ArrayList<home_information> checkSpec(GeneralSpec spec) {
-		//if (homeResult.isEmpty()) return homeResult;
+	public ArrayList<home_information> checkSpec(GeneralSpec spec) {
+		
 		
 		for(home_information a:homeArray1 )
 			{
 			 
 			if (spec.isSpecMatch(a))
 				homeResult.add(a);
-			
 		}
-		//mailservice.setReceiverEmailID("hayasam@najah.edu");
-		mailservice.sendMail("hayasam@najah.edu", homeResult);
-		return homeResult;
+		return (ArrayList<home_information>) homeResult;
 	}
-
-	
-
-
-
-	
 
 }

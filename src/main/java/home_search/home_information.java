@@ -1,4 +1,5 @@
 package home_search;
+import java.util.logging.*;
 
 public class home_information {
 	int id ;
@@ -16,7 +17,9 @@ public class home_information {
 	boolean allowingPets1 ; 
 	int leaseLength1;
 	String[]amenities;
-	public int getId() {
+	StringBuilder build;
+	  public static final Logger LOGGER = Logger.getLogger(home_information.class.getName());
+	  public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -64,7 +67,7 @@ public class home_information {
 	public void setNumberOfBathrooms(int numberOfBathroom1) {
 		this.numberOfBathroom1 = numberOfBathroom1;
 	}
-	public boolean isAllowingPets() {
+	public boolean getAllowingPets() {
 		return allowingPets1;
 	}
 	public void setAllowingPets(boolean allowingPets1) {
@@ -84,15 +87,21 @@ public class home_information {
 	}
 	
 	public void printHomeInfo () {
-    	System.out.println("Home[id="+this.id+ " ,type:" +this.type + " ,Material:" + this.material + " ,Placement:" + this.placement+"  ,price:"+this.price+" ,area:"+this.area+" ,number of bathrooms"+ this.numberOfBathroom1+",number of bedrooms:"+this.numberOfBedroom+"  ,lease length :" +this.leaseLength1+"  ,allowing pets :"+this.allowingPets1+",amenties :");
-    	for(int i=0;i<this.amenities.length;i++)	
+		String s="Home[id="+this.getId()+ " ,type:" +this.getType() + " ,Material:" + this.getMaterial() + " ,Placement:" + this.getPlacement()+"  ,price:"+this.getPrice()+" ,area:"+this.getArea()+" ,number of bathrooms"+ this.getNumberOfBathrooms()+",number of bedrooms:"+this.getNumberOfBedrooms()+"  ,lease length :" +this.getLeaseLength()+"  ,allowing pets :"+this.getAllowingPets()+",amenties :";
+		String f = null;
+		build=new StringBuilder();
+    	for(int i=0;i<this.getAmenties().length;i++)	
 	    {
-			System.out.print(this.amenities[i]+"_");
-	    }
-		System.out.print("]");
-		System.out.println();
+    		build.append(this.amenities[i]);
+    		build.append("_");
+    		
 
-    }
+    		
+	    }
+    	f=build.toString();
+    	s=s+f+"]"+"\n";
+    	LOGGER.info(s);
+	}
 	
 
 }

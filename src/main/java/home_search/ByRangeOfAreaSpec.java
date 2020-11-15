@@ -8,7 +8,6 @@ public class ByRangeOfAreaSpec implements GeneralSpec {
 	public ByRangeOfAreaSpec(int lowArea, int highArea) {
 		this.lowArea = lowArea;
 		this.highArea = highArea;
-		// TODO Auto-generated constructor stub
 	}
 
 public boolean isSpecMatch(home_information home) {

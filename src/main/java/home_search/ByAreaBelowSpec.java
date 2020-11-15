@@ -10,8 +10,7 @@ public class ByAreaBelowSpec implements GeneralSpec {
 	}
 
 	public boolean isSpecMatch(home_information home) {
-		// TODO Auto-generated method stub
-		return home.area < area1;
+		return (home.area < area1);
 	}
 
 }

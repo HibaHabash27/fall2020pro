@@ -10,7 +10,7 @@ public class ByAllowingPetsSpec implements GeneralSpec {
 	}
 
 	public boolean isSpecMatch(home_information home) {
-		// TODO Auto-generated method stub
+		
 		return (home.allowingPets1==pets);	
 		}
 

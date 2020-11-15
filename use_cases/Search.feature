@@ -3,7 +3,7 @@ Feature: Search about suitable home
 Background:
 The System has a repository of homes with their specifications (type-material-placement-pets-amenties-price-area-bedrooms-bathrooms-leaselength) 
 	Given  these homes are contained in the system 
-		|HOUSE_WOOD_VILLAGE_NO_GARAGEPARKING,FIREPLACE,ELEVATOR|510_150_3_2_6|
+		|HOUSE_WOOD_VILLAGE_YES_GARAGEPARKING,FIREPLACE,ELEVATOR|510_150_3_2_6|
 		|APARTMENT_BRICK_CITY_NO_ELEVATOR|230_120_4_2_12|
 		
 #10. By type / Apartment, house		
@@ -92,7 +92,7 @@ Scenario Outline: Search home by Allowing_pets
 	Then A list of homes that matches the  Allowing pets specification should be returned and printed on the console
 	And  email with result of allowingPets should be send to user1 "hayasam@najah.edu"
 	 
-	Examples: 
+	 Examples: 
 		|Allowed|
 		|"YES"|
 		|"NO"|
@@ -131,7 +131,13 @@ Scenario: Search By Combination of at least 2 of the above mentioned scenarios
     And  email with result of Combination should be send to user1 "hayasam@najah.edu"
 
 
-
+Scenario: Search By Combination of at least 2 of the above mentioned scenarios 
+	When I search about home area13 between 700 and 1000
+	And  I search about home by_material13 "BRICK"
+	And  I search about home by placement13 "CITY"
+	And  I search about home by Allowing_pets "NO"
+	Then A list of homes that matches the previous specification of test two should be returned and printed on the console 
+    And  email with result of Combination should be send to user1 "hayasam@najah.edu"
 #12. By Amenities/ AirConditioning, Balcony, Elevator, FirePlace, Garage Parking,
 #Swimming Pool
 #13. By Combination of at least 2 of the above mentioned scenarios		

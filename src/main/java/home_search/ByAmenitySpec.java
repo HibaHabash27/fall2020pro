@@ -6,7 +6,7 @@ public class ByAmenitySpec implements GeneralSpec {
 
 	public ByAmenitySpec(String amenity) {
 		this.amenity = amenity;
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public boolean isSpecMatch(home_information home) {

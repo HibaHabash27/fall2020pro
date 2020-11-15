@@ -6,7 +6,6 @@ public class ByNumberOfBedroomsSpec implements GeneralSpec {
 
 	public ByNumberOfBedroomsSpec(int numberOfBedrooms) {
 		this.numberOfBedrooms = numberOfBedrooms;
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isSpecMatch(home_information home) {

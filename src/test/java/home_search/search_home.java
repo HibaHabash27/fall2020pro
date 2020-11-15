@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 
 import io.cucumber.java.en.Given;
@@ -13,9 +12,9 @@ import io.cucumber.java.en.When;
 import static org.mockito.Mockito.*;
 import org.picocontainer.*;
 public class search_home {
-	ArrayList<home_information> home_inf = new ArrayList<home_information>();
-	private mockEmailHolder mockHolder;
-	private webEmailservice mailservice;
+	List<home_information> home_inf = new ArrayList<home_information>();
+	private MockEmailHolder mockHolder;
+	private WebEmailservice mailservice;
 	String type;
 	int price_less;
 	int arealess;
@@ -29,14 +28,12 @@ public class search_home {
 	String leaseLength;
 	List<List<String>> list;
     private static Search  search;
-	private static MultiSpec search1;
+	private  MultiSpecHandler multiSpecHandler;
+	public ArrayList<GeneralSpec> specList = new ArrayList<GeneralSpec>();
 
-	//Dependency injection
-   
-  
-////////////// i think i should delete this /////////////////////	
+
 	
-	public search_home (Search search, mockEmailHolder mockHolder1) 
+	public search_home (Search search, MockEmailHolder mockHolder1) 
    {
  	this.search=search;
   	mockHolder=mockHolder1;
@@ -80,10 +77,10 @@ public class search_home {
 			
 
 		}
-		 search = new Search(home_inf);
+		 search = new Search((ArrayList<home_information>) home_inf);
 
 	}
-	 ArrayList<home_information> check = new ArrayList<home_information>();
+	 List<home_information> check = new ArrayList<home_information>();
 	 
 
 	@When("I search about home by {string}")
@@ -246,7 +243,7 @@ public class search_home {
 			check=search.byNumberOfBathrooms(numberOfBathroom2);
 			for(home_information homeCheck:check)
 			{
-				assertTrue(homeCheck.numberOfBathroom1==numberOfBathroom2);
+				assertEquals(homeCheck.numberOfBathroom1,numberOfBathroom2);
 				
 			}
 			search.printResult();
@@ -296,7 +293,7 @@ public class search_home {
 	@When("I search home below area {int}")
 	public void iSearchHomeBelowArea(Integer int1) {
 		arealess=int1;
-		//search.byAreaBelow(arealess.intValue());
+	
 	}
 
 	@Then("A list of homes that matches the area specification should be returned and printed on the console")
@@ -367,11 +364,7 @@ public class search_home {
 		System.out.println("Search by area between "+lowArea2+" , "+highArea2);
 		check.clear();
 		check=search.betweenRangeOfarea(lowArea2, highArea2);
-		 for(home_information homeCheck:check)
-			{
-				assertTrue(homeCheck.area>lowArea2&&homeCheck.area<highArea2);
-				
-			}
+		assertEquals(0,check.size());
 		search.printResult();
 
 	}
@@ -448,18 +441,19 @@ public class search_home {
 
 
 
-		MultiSpec s1=new MultiSpec();
 
 			@When("I search about home area13 between {int} and {int}")
 			public void iSearchAboutHomeArea13BetweenAnd(Integer int1, Integer int2) {
 				lowArea2 = int1;
 				highArea2 = int2;
-				String ss1=int1.toString();
-				String ss2=int2.toString();
-				check.clear();
 				
-				s1.searchMore(home_inf, "areaRange", ss1,ss2);
-				check.addAll(s1.returnArray());
+				GeneralSpec spec = new ByRangeOfAreaSpec(lowArea2,highArea2);
+				specList.add(spec);
+				
+			
+				
+				
+				
 				
 			  
 			}
@@ -467,9 +461,10 @@ public class search_home {
 				@When("I search about home by_material13 {string}")
 				public void iSearchAboutHomeByMaterial13(String string) {
 				    material=string;
-				   s1.searchMore(check, "material", string);
-				   check.clear();
-				   check.addAll(s1.returnArray());
+				    GeneralSpec spec = new ByMaterialSpec(material);
+				    specList.add(spec);
+				    
+				   
 
 
 				}
@@ -478,20 +473,21 @@ public class search_home {
 					@When("I search about home by placement13 {string}")
 					public void iSearchAboutHomeByPlacement13(String string) {
 						placement=string;
-						 s1.searchMore(check, "placement",string);
-						 check.clear();
-						   check.addAll(s1.returnArray());
+						GeneralSpec spec = new ByPlaceSpec(placement);
+					    specList.add(spec);
 					}
 					
-					Boolean p=false;
+					Boolean allowingPets;
 						@When("I search about home by Allowing_pets {string}")
 						public void iSearchAboutHomeByAllowingPets(String string) {
 							
 							if(string.equalsIgnoreCase("YES"))
-								p=true;
-							s1.searchMore(check, "allowingPets",string);
-							 check.clear();
-							   check.addAll(s1.returnArray());						}
+								allowingPets=true;
+							allowingPets=false;
+							GeneralSpec spec = new ByAllowingPetsSpec(allowingPets);
+						    specList.add(spec);
+							
+						}
 
 
 
@@ -500,7 +496,8 @@ public class search_home {
 		public void aListOfHomesThatMatchesThePreviousSpecificationShouldBeReturnedAndPrintedOnTheConsole() {
 			System.out.println("Search more than one attribute");
 			
-			search.bycombination(check);
+			multiSpecHandler= new MultiSpecHandler(specList,home_inf);
+		    check=multiSpecHandler.result();
 			assertEquals(1,check.size());
 			for(home_information homeCheck:check)
 			{
@@ -508,14 +505,34 @@ public class search_home {
 				
 				assertEquals(placement,homeCheck.placement);
 				assertEquals(material, homeCheck.material);
-				assertEquals(p, homeCheck.allowingPets1);
+				assertEquals(allowingPets, homeCheck.allowingPets1);
 				
 				
 			}
 
-			s1.print();
+			multiSpecHandler.print();
 
 		}
+		
+		
+		
+		
+
+			@Then("A list of homes that matches the previous specification of test two should be returned and printed on the console")
+			public void aListOfHomesThatMatchesThePreviousSpecificationOfTestTwoShouldBeReturnedAndPrintedOnTheConsole() {
+				System.out.println("Search more than one attribute");
+				
+				multiSpecHandler= new MultiSpecHandler(specList,home_inf);
+			    check=multiSpecHandler.result();
+				assertEquals(0,check.size());
+				multiSpecHandler.print();
+			}
+
+
+
+		
+		
+		
 		
 			@Then("email with result of Combination should be send to user1 {string}")
 			public void emailWithResultOfCombinationShouldBeSendToUser1(String string) {
